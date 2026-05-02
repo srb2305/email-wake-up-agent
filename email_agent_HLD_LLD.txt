@@ -1,0 +1,241 @@
+EMAIL WAKE-UP AGENT - HLD & LLD DOCUMENT
+
+==================================================
+HIGH LEVEL DESIGN (HLD)
+==================================================
+
+1. SYSTEM OVERVIEW
+--------------------------------------------------
+The system is an AI-powered Email Agent that automates outreach, conversation, negotiation, and call scheduling with prospects.
+
+Core Flow:
+User Inbox → Email Receiver → AI Agent → Decision Engine → Email Sender → Prospect
+
+--------------------------------------------------
+
+2. MAIN COMPONENTS
+--------------------------------------------------
+
+1. Email Service
+- Handles sending and receiving emails
+- Integrates with Gmail API / SMTP
+
+2. Agent Core (LLM आधारित)
+- Intent detection
+- Response generation
+- Conversation handling
+
+3. Memory Service
+- Stores conversation threads
+- Maintains context
+
+4. Negotiation Engine
+- Budget-based decision making
+- Handles pricing discussions
+
+5. Scheduler Service
+- Handles meeting booking
+- Calendar integration or mock
+
+6. Config Service
+- Stores:
+  - Budget
+  - Tone
+  - Gig description
+
+7. Orchestrator (Main Controller)
+- Controls flow between all services
+
+--------------------------------------------------
+
+3. ARCHITECTURE FLOW
+--------------------------------------------------
+
+1. Email received
+2. Parse email
+3. Fetch conversation history
+4. Pass to LLM agent
+5. Detect intent
+6. Apply business logic:
+   - Negotiation
+   - Scheduling
+7. Generate response
+8. Send email
+9. Store updated conversation
+
+--------------------------------------------------
+
+4. DATA FLOW
+--------------------------------------------------
+
+Inbox → Parser → Memory → Agent → Decision → Response → Email Sender → Store → End
+
+==================================================
+LOW LEVEL DESIGN (LLD)
+==================================================
+
+1. MODULES
+--------------------------------------------------
+
+1. email/
+   - email_sender.py
+   - email_receiver.py
+   - parser.py
+
+2. agent/
+   - agent.py
+   - prompt_builder.py
+   - intent_classifier.py
+
+3. memory/
+   - db.py
+   - conversation_repo.py
+
+4. negotiation/
+   - negotiation_engine.py
+
+5. scheduler/
+   - scheduler.py
+   - calendar_adapter.py
+
+6. config/
+   - config_loader.py
+
+7. orchestrator/
+   - main_controller.py
+
+--------------------------------------------------
+
+2. KEY CLASSES
+--------------------------------------------------
+
+Class: EmailMessage
+- id
+- thread_id
+- sender
+- receiver
+- content
+- timestamp
+
+Class: Conversation
+- thread_id
+- messages[]
+- status
+
+Class: AgentResponse
+- reply_text
+- intent
+- action_type
+
+--------------------------------------------------
+
+3. AGENT FLOW (LLD)
+--------------------------------------------------
+
+function process_email(email):
+    conversation = get_conversation(email.thread_id)
+    intent = detect_intent(email.content)
+
+    if intent == "NEGOTIATION":
+        response = negotiation_engine.handle()
+
+    elif intent == "SCHEDULE":
+        response = scheduler.handle()
+
+    elif intent == "RESCHEDULE":
+        response = scheduler.reschedule()
+
+    else:
+        response = agent.generate_reply()
+
+    save_conversation()
+    send_email(response)
+
+--------------------------------------------------
+
+4. DATABASE DESIGN
+--------------------------------------------------
+
+Table: conversations
+- id
+- thread_id
+- status
+
+Table: messages
+- id
+- conversation_id
+- sender
+- message
+- timestamp
+
+--------------------------------------------------
+
+5. RESCHEDULE LOGIC
+--------------------------------------------------
+
+if user cancels:
+    keep old context
+    propose new slots
+    confirm booking
+
+repeat until success
+
+==================================================
+PROJECT DIRECTORY STRUCTURE
+==================================================
+
+email-wakeup-agent/
+│
+├── app/
+│   ├── email/
+│   │   ├── email_sender.py
+│   │   ├── email_receiver.py
+│   │   └── parser.py
+│   │
+│   ├── agent/
+│   │   ├── agent.py
+│   │   ├── prompt_builder.py
+│   │   └── intent_classifier.py
+│   │
+│   ├── memory/
+│   │   ├── db.py
+│   │   └── conversation_repo.py
+│   │
+│   ├── negotiation/
+│   │   └── negotiation_engine.py
+│   │
+│   ├── scheduler/
+│   │   ├── scheduler.py
+│   │   └── calendar_adapter.py
+│   │
+│   ├── config/
+│   │   └── config_loader.py
+│   │
+│   ├── orchestrator/
+│   │   └── main_controller.py
+│   │
+│   └── utils/
+│       └── logger.py
+│
+├── tests/
+│   └── test_agent.py
+│
+├── scripts/
+│   └── run_agent.py
+│
+├── .env
+├── requirements.txt
+├── README.md
+└── docker-compose.yml
+
+==================================================
+SUMMARY
+==================================================
+
+This design ensures:
+- Scalable architecture
+- Clean separation of concerns
+- Easy maintainability
+- Strong agent behavior
+- Robust rescheduling handling
+

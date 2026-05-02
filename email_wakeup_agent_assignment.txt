@@ -1,0 +1,199 @@
+SCRINI AI - EMAIL WAKE-UP AGENT ASSIGNMENT
+
+==================================================
+PROJECT OVERVIEW
+==================================================
+
+This project involves building an autonomous AI-powered Email Agent that can initiate, manage, and sustain conversations with potential prospects regarding a work opportunity (gig). The primary objective of this agent is to intelligently communicate, negotiate within defined constraints, and ultimately schedule a call with interested prospects.
+
+The agent should behave like a human recruiter or sales representative, maintaining context across conversations and ensuring continuity.
+
+==================================================
+OBJECTIVE
+==================================================
+
+Develop an Email Wake-Up Agent that:
+- Initiates email outreach to prospects
+- Engages in meaningful conversation
+- Negotiates within a predefined budget
+- Handles objections and different user intents
+- Schedules calls with interested prospects
+- Maintains full memory of conversation threads
+
+The ultimate goal is to convert prospects into scheduled calls.
+
+==================================================
+CORE FUNCTIONAL REQUIREMENTS
+==================================================
+
+1. INITIATE OUTREACH
+- Send the first email introducing the gig
+- Maintain a natural and non-spammy tone
+
+2. CONVERSATION HANDLING
+- Read and interpret incoming emails
+- Identify user intent:
+  - Interested
+  - Curious
+  - Negotiating
+  - Declining
+  - No response
+- Respond appropriately with human-like messaging
+
+3. NEGOTIATION LOGIC
+- Respect a configured budget ceiling
+- If a prospect asks for higher compensation:
+  - Negotiate within limits
+  - Never exceed the budget
+- If no agreement is possible:
+  - Exit politely
+
+4. CALL SCHEDULING
+- When interest is confirmed:
+  - Propose available time slots
+  - Confirm and lock a meeting time
+- Scheduling is the primary success metric
+
+5. MEMORY MANAGEMENT
+- Store all email interactions (sent and received)
+- Maintain continuity in conversation
+- Avoid repetition or contradictions
+- Preserve context across long threads
+
+==================================================
+CRITICAL USE CASE: RESCHEDULE LOOP
+==================================================
+
+The agent must handle rescheduling scenarios effectively:
+
+Scenario:
+- Prospect agrees to a meeting
+- Later cancels or reschedules
+
+Expected Behavior:
+- Recognize cancellation
+- Maintain full context of prior conversation
+- Respond naturally without restarting conversation
+- Propose new time slots
+- Successfully rebook the meeting
+
+This loop should work multiple times without degradation.
+
+==================================================
+TECHNICAL REQUIREMENTS
+==================================================
+
+1. EMAIL INTEGRATION
+- Support both sending and receiving emails
+- Possible tools:
+  - Gmail API
+  - SendGrid
+  - Mailgun
+  - SMTP/IMAP
+
+2. AGENT ARCHITECTURE
+- Use an LLM (e.g., OpenAI, Claude)
+- Structure the agent into:
+  - Perception (input understanding)
+  - Reasoning (decision making)
+  - Action (response generation)
+
+3. MEMORY STORAGE
+- Persist conversations using a database:
+  - PostgreSQL
+  - SQLite
+  - Redis
+  - Vector database (optional)
+
+4. CALENDAR INTEGRATION
+- Integrate scheduling via:
+  - Google Calendar
+  - Cal.com
+  - Or a mock scheduling system
+
+5. CONFIGURATION
+- Avoid hardcoding
+- Use configurable inputs:
+  - Gig description
+  - Budget limit
+  - Communication tone
+
+==================================================
+DELIVERABLES
+==================================================
+
+1. GITHUB REPOSITORY
+- Complete source code
+- Clear README including:
+  - Setup instructions
+  - Architecture diagram
+  - Design decisions and trade-offs
+
+2. DEMO VIDEO (3–5 MINUTES)
+- Walkthrough of system architecture
+- Live demo of the agent
+- Demonstration of rescheduling loop
+
+3. SAMPLE CONVERSATIONS
+Include transcripts showing:
+- Successful negotiation and booking
+- Cancellation and rebooking scenario
+- Graceful rejection/exit case
+
+==================================================
+ROLE
+==================================================
+
+Position: AI Fullstack Engineer
+
+==================================================
+TIME FRAME
+==================================================
+
+Estimated completion time: 3 to 5 days
+
+==================================================
+TECH STACK
+==================================================
+
+Flexible – developer's choice
+
+==================================================
+EVALUATION CRITERIA
+==================================================
+
+1. Agent Design (35%)
+- Quality of architecture
+- Separation of perception, reasoning, and action
+
+2. Conversation Quality (25%)
+- Human-like communication
+- Goal-oriented but not aggressive
+
+3. Reschedule Handling (20%)
+- Robust handling of edge cases
+- Ability to manage repeated rescheduling
+
+4. Code Quality (20%)
+- Clean, maintainable structure
+- Proper storage and setup
+
+==================================================
+IMPORTANT NOTE
+==================================================
+
+Focus on building a simple but fully working end-to-end system first.
+Do not over-engineer. Functionality and clarity are more important than feature richness.
+
+==================================================
+SUMMARY
+==================================================
+
+Build an intelligent AI email agent that can:
+- Start conversations
+- Understand responses
+- Negotiate within limits
+- Schedule calls
+- Maintain memory
+- Handle rescheduling seamlessly
+
