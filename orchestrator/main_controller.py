@@ -28,10 +28,10 @@ def main():
 		print(f"\nProcessing email from {sender_addr} (thread: {thread_id})")
 		# Store incoming message
 		memory.add_message(thread_id, sender_addr, receiver_addr, content, direction="received")
-		# Get conversation history (optional, for context)
+		# Get conversation history (for context)
 		history = memory.get_conversation(thread_id)
-		# Generate reply
-		reply = agent.generate_reply(content)
+		# Generate reply with context
+		reply = agent.generate_reply(content, history=history)
 		# Store reply
 		memory.add_message(thread_id, receiver_addr, sender_addr, reply, direction="sent")
 		# Send reply
