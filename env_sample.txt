@@ -1,0 +1,8 @@
+# .env file for sensitive configuration
+OPENAI_API_KEY=
+GIG_DESCRIPTION=
+BUDGET_LIMIT=
+TONE=
+EMAIL_ADDRESS=srb.com2112@gmail.com
+EMAIL_PASSWORD=##############
+IMAP_SERVER=imap.gmail.com
