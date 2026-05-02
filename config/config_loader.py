@@ -11,6 +11,8 @@ class Config:
 		self.tone = os.getenv('TONE')
 		self.email_address = os.getenv('EMAIL_ADDRESS')
 		self.email_password = os.getenv('EMAIL_PASSWORD')
+		self.calendar_id = os.getenv('CALENDAR_ID', 'primary')
+		self.calendar_timezone = os.getenv('CALENDAR_TIMEZONE', 'UTC')
 
 	def as_dict(self):
 		return {

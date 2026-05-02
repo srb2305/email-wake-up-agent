@@ -101,6 +101,12 @@ Go to https://console.cloud.google.com/ and create a project.
 Enable the Google Calendar API for your project.
 Create OAuth 2.0 credentials (Desktop app or Web app).
 Download the credentials.json file and place it in your project root.
+-----------
+Go to the Google Cloud Console.
+Create a Service Account (if you haven’t already).
+Go to “Keys” and create a new JSON key.
+Download the JSON file and save it as calendar_credentials.json in your project root.
+Make sure your Google Calendar is shared with the service account’s client_email.
 -----------------------
 Test Cases Step by Step
 --------------------
@@ -111,3 +117,6 @@ python tests/test_conversation_repo.py
 
 python -m tests.test_conversation_repo
 python orchestrator/main_controller.py
+
+
+streamlit run ui_streamlit.py
