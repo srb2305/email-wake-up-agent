@@ -8,6 +8,7 @@ from mail.email_sender import EmailSender
 from agent.agent import EmailAgent
 from agent.intent_classifier import IntentClassifier
 from negotiation.negotiation_engine import NegotiationEngine
+from scheduler.scheduler import Scheduler
 from memory.conversation_repo import ConversationRepo
 
 def extract_thread_id(email_obj):
@@ -20,6 +21,8 @@ def main():
 	agent = EmailAgent()
 	intent_classifier = IntentClassifier()
 	negotiation_engine = NegotiationEngine()
+
+	scheduler = Scheduler()
 	memory = ConversationRepo()
 
 	print("Fetching unread emails...")
@@ -37,9 +40,16 @@ def main():
 		# Detect intent
 		intent = intent_classifier.classify_intent(content)
 		print(f"Detected intent: {intent}")
-		# Use negotiation engine if intent is NEGOTIATION
+		# Handle negotiation, scheduling, or default to agent
 		if intent == "NEGOTIATION":
 			reply = negotiation_engine.handle(content)
+		elif intent in ("SCHEDULE", "RESCHEDULE"):
+			slots = scheduler.propose_slots()
+			reply = (
+				"Here are some available time slots for a call:\n" +
+				"\n".join(f"- {slot}" for slot in slots) +
+				"\nPlease reply with your preferred slot."
+			)
 		else:
 			reply = agent.generate_reply(content, history=history)
 		# Store reply
