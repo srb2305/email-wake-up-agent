@@ -99,3 +99,4 @@ python tests/test_email_receiver.py
 python tests/test_conversation_repo.py
 
 python -m tests.test_conversation_repo
+python orchestrator/main_controller.py

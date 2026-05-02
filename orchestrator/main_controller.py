@@ -6,6 +6,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from mail.email_receiver import EmailReceiver
 from mail.email_sender import EmailSender
 from agent.agent import EmailAgent
+from agent.intent_classifier import IntentClassifier
+from negotiation.negotiation_engine import NegotiationEngine
 from memory.conversation_repo import ConversationRepo
 
 def extract_thread_id(email_obj):
@@ -16,6 +18,8 @@ def main():
 	receiver = EmailReceiver()
 	sender = EmailSender()
 	agent = EmailAgent()
+	intent_classifier = IntentClassifier()
+	negotiation_engine = NegotiationEngine()
 	memory = ConversationRepo()
 
 	print("Fetching unread emails...")
@@ -30,8 +34,14 @@ def main():
 		memory.add_message(thread_id, sender_addr, receiver_addr, content, direction="received")
 		# Get conversation history (for context)
 		history = memory.get_conversation(thread_id)
-		# Generate reply with context
-		reply = agent.generate_reply(content, history=history)
+		# Detect intent
+		intent = intent_classifier.classify_intent(content)
+		print(f"Detected intent: {intent}")
+		# Use negotiation engine if intent is NEGOTIATION
+		if intent == "NEGOTIATION":
+			reply = negotiation_engine.handle(content)
+		else:
+			reply = agent.generate_reply(content, history=history)
 		# Store reply
 		memory.add_message(thread_id, receiver_addr, sender_addr, reply, direction="sent")
 		# Send reply
