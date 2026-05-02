@@ -90,3 +90,12 @@ python orchestrator/main_controller.py
 ---
 
 For any issues, please refer to the code comments or contact the maintainer.
+
+Test Cases Step by Step
+--------------------
+python tests/test_agent.py    
+python tests/test_email_sender.py    
+python tests/test_email_receiver.py    
+python tests/test_conversation_repo.py
+
+python -m tests.test_conversation_repo

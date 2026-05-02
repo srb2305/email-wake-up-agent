@@ -30,6 +30,8 @@ class EmailReceiver:
             mail.select('inbox')
             status, messages = mail.search(None, '(UNSEEN)')
             email_ids = messages[0].split()
+            # Only fetch the last 5 unread emails
+            email_ids = email_ids[-5:]
             emails = []
             for eid in email_ids:
                 status, msg_data = mail.fetch(eid, '(RFC822)')
