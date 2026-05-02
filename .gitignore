@@ -75,3 +75,4 @@ Thumbs.db
 
 # Pyre type checker
 .pyre/
+calendar_credentials.json

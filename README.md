@@ -90,7 +90,18 @@ python orchestrator/main_controller.py
 ---
 
 For any issues, please refer to the code comments or contact the maintainer.
+--------------------------
+EMAIL 2 Auth Password
 
+https://support.google.com/accounts/answer/185839?sjid=12493105641154969624-NC
+---------------------------
+Google Calander MEETING SETUP
+
+Go to https://console.cloud.google.com/ and create a project.
+Enable the Google Calendar API for your project.
+Create OAuth 2.0 credentials (Desktop app or Web app).
+Download the credentials.json file and place it in your project root.
+-----------------------
 Test Cases Step by Step
 --------------------
 python tests/test_agent.py    
